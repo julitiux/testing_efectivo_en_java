@@ -27,8 +27,8 @@ public class TransferServiceTest {
     var expectedFromAccountBalanceAfterTransfer = BigDecimal.valueOf(30);
     var expectedToAccountBalanceAfterTransfer = BigDecimal.valueOf(30);
 
-    Account from = new Account(UUID.randomUUID(), fromInitialBalance);
-    Account to = new Account(UUID.randomUUID(), toInitialBalance);
+    var from = new Account(UUID.randomUUID(), fromInitialBalance);
+    var to = new Account(UUID.randomUUID(), toInitialBalance);
 
     assertEquals(from.getBalance(), fromInitialBalance);
     assertEquals(to.getBalance(), toInitialBalance);
