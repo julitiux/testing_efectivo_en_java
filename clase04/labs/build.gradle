@@ -1,0 +1,52 @@
+plugins {
+  id 'java'
+}
+
+group = 'com.circulosiete.curso.testing'
+version = '1.0-SNAPSHOT'
+description = 'IntroBDD-Clase04'
+
+java {
+  sourceCompatibility = JavaVersion.VERSION_17
+  targetCompatibility = JavaVersion.VERSION_17
+}
+
+ext {
+  junitVersion = '5.13.4'
+  mockitoVersion = '5.9.0'
+  assertjVersion = '3.27.4'
+  jacocoVersion = '0.8.9'
+  cucumberVersion = '7.27.0'
+}
+
+repositories {
+  mavenCentral()
+}
+
+dependencies {
+  // BOMs
+  testImplementation platform("org.junit:junit-bom:${junitVersion}")
+  testImplementation platform("io.cucumber:cucumber-bom:${cucumberVersion}")
+
+  // JUnit
+  testImplementation 'org.junit.jupiter:junit-jupiter'
+  testImplementation 'org.junit.jupiter:junit-jupiter-params'
+
+  // Cucumber
+  testImplementation 'io.cucumber:cucumber-java'
+  testImplementation 'io.cucumber:cucumber-junit-platform-engine'
+
+  // Mockito
+  testImplementation "org.mockito:mockito-core:${mockitoVersion}"
+  testImplementation "org.mockito:mockito-junit-jupiter:${mockitoVersion}"
+
+  // AssertJ
+  testImplementation "org.assertj:assertj-core:${assertjVersion}"
+
+  // JUnit Platform Suite API
+  testImplementation 'org.junit.platform:junit-platform-suite:1.13.4'
+}
+
+test {
+  useJUnitPlatform()
+}
