@@ -1,5 +1,6 @@
 package com.circulosiete.curso.testing.clase03;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
@@ -13,6 +14,7 @@ public class TransferServiceTest {
 
   TransferService underTest;
 
+  @BeforeEach
   void setUp() {
     // Initialize the TransferService and any required dependencies
     underTest = new TransferService();
