@@ -28,8 +28,6 @@ public class CalculoEnvioSteps {
 
   @When("el cliente procede al pago")
   public void when() {
-    // Aquí se podría llamar al método que calcula el costo de envío
-    // ShippingCostCalculator.calculateShippingCost(totalCarrito, costoMinimo);
 
     var costoEnvio = this.shippingCostCalculator.calculate(
       this.totalCarrito
@@ -38,8 +36,7 @@ public class CalculoEnvioSteps {
 
   @Then("el costo de envío debe ser {int}")
   public void then(Integer costoEnvio) {
-    // Aquí se podría verificar que el costo de envío es 0
-    // assertEquals(BigDecimal.ZERO, ShippingCostCalculator.calculateShippingCost(totalCarrito, costoMinimo));
+    
   }
 
 }
