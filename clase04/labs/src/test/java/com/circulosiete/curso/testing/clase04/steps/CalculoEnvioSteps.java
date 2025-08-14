@@ -15,9 +15,9 @@ public class CalculoEnvioSteps {
   private ShippingCostCalculator shippingCostCalculator;
 
   @Given("que el cliente tiene un carrito con valor de {int} pesos y el costo minimo para envio gratis es {int}")
-  public void given(Integer totalCarrito, Integer costoAnonimo) {
+  public void given(Integer totalCarrito, Integer costoMinimo) {
     this.totalCarrito = BigDecimal.valueOf(totalCarrito);
-    this.costoMinimo = BigDecimal.valueOf(costoAnonimo);
+    this.costoMinimo = BigDecimal.valueOf(costoMinimo);
 
     this.shippingCostCalculator = new ShippingCostCalculator(
       this.costoMinimo,
