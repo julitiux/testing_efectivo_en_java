@@ -7,8 +7,6 @@ import io.cucumber.java.en.When;
 
 import java.math.BigDecimal;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 
 public class CalculoEnvioSteps {
 
@@ -42,12 +40,6 @@ public class CalculoEnvioSteps {
   public void then(Integer costoEnvio) {
     // Aquí se podría verificar que el costo de envío es 0
     // assertEquals(BigDecimal.ZERO, ShippingCostCalculator.calculateShippingCost(totalCarrito, costoMinimo));
-
-    assertThat(
-      costo
-
-      this.costoEnvio).isEqualByComparingTo(BigDecimal.valueOf()
-    )
   }
 
 }
