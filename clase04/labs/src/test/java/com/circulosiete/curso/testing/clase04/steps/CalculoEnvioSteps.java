@@ -7,11 +7,14 @@ import io.cucumber.java.en.When;
 
 import java.math.BigDecimal;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+
 
 public class CalculoEnvioSteps {
 
   private BigDecimal totalCarrito;
   private BigDecimal costoMinimo;
+  private BigDecimal costoEnvio;
   private ShippingCostCalculator shippingCostCalculator;
 
   @Given("que el cliente tiene un carrito con valor de {int} pesos y el costo minimo para envio gratis es {int}")
@@ -29,14 +32,15 @@ public class CalculoEnvioSteps {
   @When("el cliente procede al pago")
   public void when() {
 
-    var costoEnvio = this.shippingCostCalculator.calculate(
+    this.costoEnvio = this.shippingCostCalculator.calculate(
       this.totalCarrito
     );
   }
 
   @Then("el costo de envío debe ser {int}")
-  public void then(Integer costoEnvio) {
-    
+  public void then(Integer costoEsperado) {
+    assertThat(
+      this.costoEnvio
+    ).isEqualByComparingTo(BigDecimal.valueOf(costoEsperado));
   }
-
 }
