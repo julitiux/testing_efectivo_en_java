@@ -1,0 +1,52 @@
+plugins {
+  id 'java'
+}
+
+group = 'com.circulosiete.curso.testing'
+version = '1.0-SNAPSHOT'
+
+java {
+  sourceCompatibility = JavaVersion.VERSION_17
+  targetCompatibility = JavaVersion.VERSION_17
+}
+
+ext {
+  junitVersion = '5.11.3'
+  mockitoVersion = '5.18.0'
+  testcontainersVersion = '1.21.3'
+  flywayVersion = '11.9.2'
+}
+
+repositories {
+  mavenCentral()
+}
+
+dependencies {
+  // BOMs
+  testImplementation platform("org.junit:junit-bom:${junitVersion}")
+  testImplementation platform("org.testcontainers:testcontainers-bom:${testcontainersVersion}")
+  testImplementation platform("org.mockito:mockito-bom:${mockitoVersion}")
+
+  // JUnit
+  testImplementation 'org.junit.jupiter:junit-jupiter'
+
+  // Mockito
+  testImplementation 'org.mockito:mockito-junit-jupiter'
+  testImplementation 'org.mockito:mockito-core'
+
+  // Testcontainers
+  testImplementation 'org.testcontainers:junit-jupiter'
+  testImplementation "org.testcontainers:postgresql:${testcontainersVersion}"
+
+  // Base de datos
+  implementation 'org.postgresql:postgresql:42.7.4'
+  implementation 'com.zaxxer:HikariCP:5.1.0'
+
+  // Flyway
+  implementation "org.flywaydb:flyway-core:${flywayVersion}"
+  implementation "org.flywaydb:flyway-database-postgresql:${flywayVersion}"
+}
+
+test {
+  useJUnitPlatform()
+}
