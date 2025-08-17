@@ -35,3 +35,7 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### Cucumber ###
+clase04/labs/target/
+clase06/labs/target/
