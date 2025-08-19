@@ -33,3 +33,10 @@ Feature: Transferencia entre cuentas
     Then se debe lanzar una IllegalStateException con el mensaje "Insufficient funds"
     And el saldo de la cuenta origen debe ser 10.00
     And el saldo de la cuenta destino debe ser 0.00
+
+  Scenario: Multi-transferencia no exitosa por saldo suficiente
+    Given una cuenta origen con saldo 50.00
+    And una cuenta destino con saldo 0.00
+    When transfiero 10.00 de origen a destino
+    And el saldo de la cuenta origen debe ser 40.00
+    And el saldo de la cuenta destino debe ser 10.00
