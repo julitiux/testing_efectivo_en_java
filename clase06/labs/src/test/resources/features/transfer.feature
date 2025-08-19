@@ -40,3 +40,10 @@ Feature: Transferencia entre cuentas
     When transfiero 10.00 de origen a destino
     And el saldo de la cuenta origen debe ser 40.00
     And el saldo de la cuenta destino debe ser 10.00
+    When transfiero 30.00 de origen a destino
+    And el saldo de la cuenta origen debe ser 10.00
+    And el saldo de la cuenta destino debe ser 40.00
+    When transfiero 10.01 de origen a destino
+    Then se debe lanzar una IllegalStateException con el mensaje "Insufficient funds"
+    And el saldo de la cuenta origen debe ser 10.00
+    And el saldo de la cuenta destino debe ser 40.00
