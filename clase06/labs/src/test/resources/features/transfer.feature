@@ -19,6 +19,12 @@ Feature: Transferencia entre cuentas
     When transfiero 10.00 de origen a destino
     Then el saldo de la cuenta origen debe ser 60.00
     And el saldo de la cuenta destino debe ser 90.00
+    When transfiero 10.00 de origen a destino
+    Then el saldo de la cuenta origen debe ser 50.00
+    And el saldo de la cuenta destino debe ser 100.00
+    When transfiero 50.00 de origen a destino
+    Then el saldo de la cuenta origen debe ser 0.00
+    And el saldo de la cuenta destino debe ser 150.00
 
   Scenario: Transferencia no exitosa por saldo suficiente
     Given una cuenta origen con saldo 10.00
