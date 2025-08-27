@@ -1,0 +1,146 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.circulosiete.curso.testing.efectivo</groupId>
+    <artifactId>testing-efectivo-java-clase10</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <name>Testing Efectivo en Java — Clase 10</name>
+    <description>PIT testing</description>
+
+    <properties>
+        <maven.compiler.release>21</maven.compiler.release>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <junit.jupiter.version>5.10.3</junit.jupiter.version>
+        <mockito.version>5.12.0</mockito.version>
+        <assertj.version>3.26.0</assertj.version>
+        <jacoco.version>0.8.12</jacoco.version>
+        <pitest.version>1.20.2</pitest.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>${junit.jupiter.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-junit-jupiter</artifactId>
+            <version>${mockito.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>${mockito.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>${assertj.version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.2.5</version>
+                <configuration>
+                    <useSystemClassLoader>false</useSystemClassLoader>
+                    <failIfNoTests>true</failIfNoTests>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${jacoco.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.pitest</groupId>
+                <artifactId>pitest-maven</artifactId>
+                <version>${pitest.version}</version>
+                <configuration>
+                    <targetClasses>
+                        <!-- Paquetes a mutar -->
+                        <param>com.circulosiete.curso.testing.**</param>
+                    </targetClasses>
+                    <targetTests>
+                        <!-- Dónde viven los tests -->
+                        <param>com.circulosiete.curso.testing.**</param>
+                    </targetTests>
+
+                    <!-- Motor de pruebas -->
+                    <testPlugin>junit5</testPlugin>
+
+                    <!-- Rendimiento / estabilidad -->
+                    <threads>4</threads>
+                    <timeoutFactor>1.5</timeoutFactor>
+                    <timeoutConstInMillis>4000</timeoutConstInMillis>
+
+                    <!-- Mutadores recomendados -->
+                    <mutators>
+                        <mutator>STRONGER</mutator>
+                        <!--
+                            https://pitest.org/quickstart/mutators/
+                        -->
+                    </mutators>
+
+                    <!-- Excluir ruido/ceremonial -->
+                    <excludedClasses>
+                        <param>*.dto.*</param>
+                        <param>*.config.*</param>
+                    </excludedClasses>
+                    <excludedMethods>
+                        <param>toString</param>
+                        <param>equals</param>
+                        <param>hashCode</param>
+                    </excludedMethods>
+
+                    <!-- Gate de calidad -->
+                    <mutationThreshold>60</mutationThreshold>
+
+                    <!-- Incremental (histórico) -->
+                    <historyInputLocation>${project.build.directory}/pit-history/history.csv</historyInputLocation>
+                    <historyOutputLocation>${project.build.directory}/pit-history/history.csv</historyOutputLocation>
+                </configuration>
+                <dependencies>
+                    <!-- Plugin JUnit 5 para PIT -->
+                    <dependency>
+                        <groupId>org.pitest</groupId>
+                        <artifactId>pitest-junit5-plugin</artifactId>
+                        <version>1.2.3</version>
+                    </dependency>
+                </dependencies>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>mutationCoverage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
