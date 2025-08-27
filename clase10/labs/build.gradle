@@ -1,0 +1,75 @@
+plugins {
+    id 'java'
+    id 'jacoco'
+    id 'info.solidsoft.pitest' version '1.15.0' // plugin PIT para Gradle
+}
+
+group = 'com.circulosiete.curso.testing.efectivo'
+version = '1.0.0-SNAPSHOT'
+description = 'PIT testing'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    junitJupiterVersion = '5.10.3'
+    mockitoVersion = '5.12.0'
+    assertjVersion = '3.26.0'
+}
+
+dependencies {
+    testImplementation "org.junit.jupiter:junit-jupiter:${junitJupiterVersion}"
+    testImplementation "org.mockito:mockito-junit-jupiter:${mockitoVersion}"
+    testImplementation "org.mockito:mockito-core:${mockitoVersion}"
+    testImplementation "org.assertj:assertj-core:${assertjVersion}"
+}
+
+test {
+    useJUnitPlatform()
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+}
+
+jacoco {
+    toolVersion = "0.8.12"
+}
+
+jacocoTestReport {
+    dependsOn test
+    reports {
+        xml.required = true
+        html.required = true
+    }
+}
+
+pitest {
+    pitestVersion = '1.20.2'
+    junit5PluginVersion = '1.2.3'
+
+    targetClasses = ['com.circulosiete.curso.testing.*']  // clases a mutar
+    targetTests = ['com.circulosiete.curso.testing.*']    // tests a ejecutar
+
+    testPlugin = 'junit5'
+
+    threads = 4
+    timeoutFactor = 1.5
+    timeoutConstInMillis = 4000
+
+    mutators = ['STRONGER']
+
+    excludedClasses = ['*.dto.*', '*.config.*']
+    excludedMethods = ['toString', 'equals', 'hashCode']
+
+    mutationThreshold = 60
+
+    historyInputLocation = "$buildDir/pit-history/history.csv"
+    historyOutputLocation = "$buildDir/pit-history/history.csv"
+}
