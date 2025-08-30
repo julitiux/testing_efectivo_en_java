@@ -1,0 +1,42 @@
+{
+  "provider": {
+    "name": "minibank-callbacks"
+  },
+  "consumer": {
+    "name": "spei-gateway"
+  },
+  "interactions": [
+    {
+      "description": "POST settlement callback ACK",
+      "providerStates": [
+        {
+          "name": "payment exists SENT with externalRef SPEI-req-1"
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "path": "/callbacks/spei/settlement",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "externalRef": "SPEI-req-1"
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "status": "ACK"
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "pactSpecification": {
+      "version": "3.0.0"
+    }
+  }
+}
