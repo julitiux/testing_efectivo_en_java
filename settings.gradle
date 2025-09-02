@@ -1,2 +1,2 @@
 rootProject.name = 'testing_efectivo_en_java'
-include 'clase03:labs', 'clase04:labs', 'clase05:labs', 'clase06:labs', 'clase07:labs', 'clase08:labs', 'clase10:labs', 'clase11:labs'
+include 'clase03:labs', 'clase04:labs', 'clase05:labs', 'clase06:labs', 'clase07:labs', 'clase08:labs', 'clase10:labs', 'clase11:labs', 'clase12:labs'
